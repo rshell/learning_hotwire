@@ -1,0 +1,26 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@import "fonts/font_selection.css";
+
+@import "simplecss/simpletails.css";
+
+@import "simplecss/simpletails_color_select.css";
+
+.field {
+  margin-bottom: 1rem;
+
+  input {
+    &[type="text"],
+    &[type="search"],
+    &[type="tel"],
+    &[type="url"],
+    &[type="email"],
+    &[type="password"]{
+      width: 100%;
+    }
+  }
+}

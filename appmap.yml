@@ -1,0 +1,13 @@
+# 'name' should be the same as the code repo name.
+name: sesible_rails_starter
+packages:
+# Paths
+- path: app/controllers
+- path: app/models
+- path: app/views
+- path: lib
+- path: app/components
+# Gems
+#- gem: devise
+#- gem: activerecord
+

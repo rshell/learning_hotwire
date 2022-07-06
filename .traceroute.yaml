@@ -1,0 +1,28 @@
+ignore_unreachable_actions:
+- action_mailbox/ingresses/mandrill/inbound_emails#health_check
+- active_storage/representations/proxy#send_stream
+- active_storage/blobs/proxy#send_stream
+- application#authenticate_admin!
+- home#authenticate_admin!
+- ^devise\/
+- ^devise
+- app_tools/mains#authenticate_admin!
+- app_tools/styles#authenticate_admin!
+- view_components#render_in_layout_to_string
+- view_components#render_example_to_string
+- ^lookbook\/
+- ^lookbook
+- ^avo\/
+- ^rails/conductor/action_mailbox\/
+
+ignore_unused_routes:
+- ^rails/conductor/action_mailbox\/
+- ^devise\/
+- health_check
+- /lookbook-cable
+- ^lookbook\/
+- ^avo\/
+
+ignore_uninitialized_constant:
+- TestProf
+

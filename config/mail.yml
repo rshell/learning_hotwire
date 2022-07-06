@@ -1,0 +1,21 @@
+default: &default
+  address: smtp.gmail.com
+  authentication: plain
+  enable_starttls_auto: true
+  delivery_method: :smtp
+  host: ~
+  password: ~
+  port: 587
+  user_name: ~
+  sender: ~
+
+development:
+  delivery_method: :letter_opener
+  host: localhost
+  port: 3000
+  perform_deliveries: true
+
+test:
+
+production:
+  <<: *default

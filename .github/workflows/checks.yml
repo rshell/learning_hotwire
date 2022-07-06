@@ -1,0 +1,66 @@
+name: Checks
+
+on:
+ workflow_dispatch:
+ pull_request:
+  branches:
+  - '*'
+ push:
+  branches:
+  - develop
+  - master
+jobs:
+ test:
+  env:
+   REDIS_URL: redis://localhost:6379/0
+   RAILS_ENV: test
+   DATABASE_URL: postgres://postgres:password@localhost:5432/test
+  runs-on: ubuntu-latest
+  services:
+   postgres:
+    image: postgres:13
+    env:
+     POSTGRES_USER: postgres
+     POSTGRES_PASSWORD: password
+    ports: ['5432:5432']
+   redis:
+    image: redis
+    ports: ['6379:6379']
+    options: --entrypoint redis-server
+
+  steps:
+  - uses: actions/checkout@v2
+
+  - name: Setup Ruby
+    uses: ruby/setup-ruby@v1
+    with:
+     ruby-version: 3.1.2
+     bundler: default
+
+  - name: Gem Cache
+    uses: actions/cache@v1
+    id: gem-cache
+    with:
+     path: vendor/bundle
+     key: ${{ runner.os }}-bundle-srs-v1-${{ hashFiles('**/Gemfile.lock') }}
+     restore-keys: |
+      ${{ runner.os }}-bundle-srs-v1
+      ${{ runner.os }}-bundle-srs
+
+  - name: Install Ruby gems
+    run: |
+     bundle config path vendor/bundle
+     bundle check || bundle install --jobs 4 --retry 3
+
+  - name: Run Checks
+    env:
+     PG_USER: postgres
+     WITH_COVERAGE: true
+     DISABLE_SPRING: 1
+    run: |
+     gem install bundler
+     bundle install --jobs 4 --retry 3
+     bundle exec standardrb
+     bundle exec bundler-audit
+     bundle exec brakeman 
+     bundle exec rails_best_practices .

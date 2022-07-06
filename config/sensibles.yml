@@ -1,0 +1,16 @@
+default: &default
+  app_name: "SensibleRailsStarter"
+  app_description: "Get building fasterer..."
+  app_host: "local"
+  app_port: "3000"
+  demo_instance: true
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  

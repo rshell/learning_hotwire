@@ -1,0 +1,29 @@
+{
+  "name": "app",
+  "private": "true",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.0.1",
+    "@hotwired/turbo-rails": "^7.1.3",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/line-clamp": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.7",
+    "esbuild": "^0.14.42",
+    "postcss": "^8.4.14",
+    "postcss-cli": "^9.1.0",
+    "postcss-import": "^14.1.0",
+    "postcss-nesting": "^10.1.7",
+    "postcss-preset-env": "^7.7.0",
+    "tailwindcss": "3.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "build:css": "tailwindcss --postcss -i app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css --minify",
+    "tailwind-config-viewer": "tailwind-config-viewer -p 3008 -c tailwind.config.js"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0",
+    "tailwind-config-viewer": "^1.7.1"
+  }
+}
